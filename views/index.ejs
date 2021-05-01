@@ -1,11 +1,75 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>Chuck Norris Joke</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body class="container">
+  <h1 class="jumbotron text-center">
+    <img src="<%= jokeData.icon_url %>" width="50">
+    Chuck Norris Jokes
+  </h1>
+  <h3 class="col-xs-6 col-xs-offset-4">Choose Category:</h3>
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-4">
+      <form action="/" method="GET">
+        <% categories.forEach(function(category){ %>
+          <div class="radio">
+            <label>
+              <input type="radio" name="category" value="<%= category %>" <%= category==="dev" ? 'checked' : "" %>>
+            <%= category %>
+            </label>
+          </div>
+        <% }) %>
+        <input type="radio" name="category" value="animal">
+        <span>animal</span><br>
+        <input type="radio" name="category" value="career">
+        <span>career</span><br>
+        <input type="radio" name="category" value="celebrity">
+        <span>celebrity</span><br>
+        <input type="radio" name="category" value="dev">
+        <span>dev</span><br>
+        <input type="radio" name="category" value="explicit">
+        <span>explicit</span><br>
+        <input type="radio" name="category" value="fashion">
+        <span>fashion</span><br>
+        <input type="radio" name="category" value="food">
+        <span>food</span><br>
+        <input type="radio" name="category" value="history">
+        <span>history</span><br>
+        <input type="radio" name="category" value="money">
+        <span>money</span><br>
+        <input type="radio" name="category" value="movie">
+        <span>movie</span><br>
+        <input type="radio" name="category" value="music">
+        <span>music</span><br>
+        <input type="radio" name="category" value="political">
+        <span>political</span><br>
+        <input type="radio" name="category" value="religion">
+        <span>religion</span><br>
+        <input type="radio" name="category" value="science">
+        <span>science</span><br>
+        <input type="radio" name="category" value="sport">
+        <span>sport</span><br>
+        <input type="radio" name="category" value="travel">
+        <span>travel</span><br><br>
+        <button class="btn btn-success" type="submit">Get Chuck Norris Joke</button>
+      </form>
+    </div>
+  </div>
+  <br>
+  <div class="col-xs-6 col-xs-offset-3">
+    <h4 style="text-decoration: underline;">
+      <%= jokeData.categories %>
+    </h4>
+    <h5 style="color:rgb(20, 104, 160); font-weight: bold;">
+      <%= jokeData.value %>
+    </h5>
+  </div>
+</body>
+
 </html>
