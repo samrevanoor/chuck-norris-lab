@@ -2,23 +2,21 @@ var express = require('express');
 var router = express.Router();
 const request = require('request');
 const token = process.env.GITHUB_TOKEN;
-const rootURL = 'https://api.chucknorris.io/jokes/';
+const jokeURL = 'https://api.chucknorris.io/jokes/random?category=';
+const categoriesURL = 'https://api.chucknorris.io/jokes/categories/'
 
-/* GET home page. */
-router.get('/', function(req, res) {
-  const category = req.query.category;
-  const options = {
-    url: `${rootURL}random?category=${category}`,
-    headers: {
-      'User-Agent': 'samrevanoor',
-      Authorization: `token ${token}`
+router.get('/', function (req, res) {
+  request(categoriesURL, function (err, response, categoriesJSON) {
+    const categories = JSON.parse(categoriesJSON);
+    if (req.query.category) {
+      request(jokeURL + req.query.category, function (error, response, jokeJSON) {
+        const jokeData = JSON.parse(jokeJSON).value;
+        res.render('index', { categories, jokeData, categoryChosen: req.query.category })
+      })
+    } else {
+      res.render('index', { categories, jokeData: null, categoryChosen: null })
     }
-  };
-  request(options, function(err, response,body){
-    console.log(`category: ${category}`);
-    const jokeData = JSON.parse(body);
-    res.render('index', { categories:["dev", "music"], jokeData });
   })
-});
+})
 
 module.exports = router;
